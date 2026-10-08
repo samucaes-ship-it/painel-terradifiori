@@ -1,0 +1,252 @@
+<title>Resultados Terra di Fiori</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: header with period switch, funnel strip of 5 steps, daily chart, conversion table. */
+:root {
+  --bg: #f6f7f3;
+  --surface: #ffffff;
+  --ink: #1f2a22;
+  --muted: #5f6b61;
+  --line: #dfe3da;
+  --leaf: #2f5d43;
+  --petal: #c2557a;
+  --petal-soft: #f3dbe4;
+  --leaf-soft: #dde9e1;
+  --warn: #a35c00;
+  --warn-soft: #fbecd6;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141a16; --surface: #1c241f; --ink: #e8ede8; --muted: #9aa69d; --line: #2e3a32;
+  --leaf: #7fbf98; --petal: #ec8cae; --petal-soft: #3b2530; --leaf-soft: #233a2c;
+  --warn: #f0b265; --warn-soft: #3a2d1a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141a16; --surface: #1c241f; --ink: #e8ede8; --muted: #9aa69d; --line: #2e3a32;
+  --leaf: #7fbf98; --petal: #ec8cae; --petal-soft: #3b2530; --leaf-soft: #233a2c;
+  --warn: #f0b265; --warn-soft: #3a2d1a; color-scheme: dark }
+
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 48px; display: grid; gap: 22px; }
+header { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; justify-content: space-between; }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(26px, 4vw, 36px); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.sub { color: var(--muted); margin: 2px 0 0; font-size: 14px; }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); padding: 3px; }
+.seg button { font: 500 13px var(--body); color: var(--muted); background: none; border: 0; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--bg); }
+.seg button:focus-visible, .btn:focus-visible { outline: 2px solid var(--petal); outline-offset: 2px; }
+.btn { font: 500 13px var(--body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.fresh { font: 12px var(--mono); color: var(--muted); }
+
+.notice { border-radius: 10px; padding: 12px 16px; font-size: 14px; background: var(--warn-soft); color: var(--ink); border: 1px solid var(--line); }
+.notice b { color: var(--warn); }
+
+.funnel { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.step { padding: 16px 16px 14px; border-right: 1px solid var(--line); display: grid; gap: 4px; min-width: 0; }
+.step:last-child { border-right: 0; }
+.step .lbl { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+.step .num { font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.step .rate { font: 12px var(--mono); color: var(--muted); }
+.step .bar { height: 6px; border-radius: 3px; background: var(--leaf-soft); overflow: hidden; margin-top: 6px; }
+.step .bar i { display: block; height: 100%; background: var(--leaf); }
+.step.key .num { color: var(--petal); }
+.step.key .bar i { background: var(--petal); }
+.step.zero .num { color: var(--muted); }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 12px; min-width: 0; }
+.panel h2 { font-family: var(--display); font-weight: 500; font-size: 19px; margin: 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.chart { overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.chart text { font-family: var(--mono); font-size: 11px; fill: var(--muted); }
+
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
+.tbl { overflow-x: auto; }
+th, td { text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+td.dim { color: var(--muted); }
+.channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.chan { display: grid; gap: 6px; padding: 14px; border: 1px dashed var(--line); border-radius: 10px; min-width: 0; }
+.chan .lbl { font-weight: 600; }
+.chan .rate { font-size: 13px; color: var(--muted); }
+.pill { justify-self: start; font-size: 12px; font-weight: 500; padding: 2px 10px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); }
+.foot { color: var(--muted); font-size: 13px; max-width: 70ch; }
+.empty { color: var(--muted); padding: 24px 0; text-align: center; }
+
+@media (max-width: 720px) {
+  .funnel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .step { border-bottom: 1px solid var(--line); }
+  .step:nth-child(2n) { border-right: 0; }
+  .step:last-child { grid-column: 1 / -1; border-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Terra di Fiori</h1>
+      <p class="sub">Visitas, carrinho e compras do site, atualizado todo dia</p>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Período">
+        <button id="p7" data-days="7" aria-pressed="true">7 dias</button>
+        <button id="p14" data-days="14" aria-pressed="false">14 dias</button>
+        <button id="p30" data-days="30" aria-pressed="false">30 dias</button>
+      </div>
+      <span class="fresh" id="fresh">Carregando…</span>
+    </div>
+  </header>
+
+  <div class="notice" id="notice" hidden></div>
+
+  <section class="funnel" id="funnel" aria-label="Funil de compra"></section>
+
+  <section class="panel">
+    <h2>Por dia</h2>
+    <div class="legend" id="legend"></div>
+    <div class="chart" id="chart"><p class="empty">Carregando os números…</p></div>
+  </section>
+
+  <section class="panel">
+    <h2>Detalhe diário</h2>
+    <div class="tbl" id="table"><p class="empty">Aguardando dados.</p></div>
+  </section>
+
+  <p class="foot">Fonte: Pixel Terra Di Fiori (eventos do navegador). Visitas são páginas vistas (PageView), não pessoas únicas. Dias contados no horário de Brasília.</p>
+</div>
+
+<script>
+(function () {
+
+  const TZ = "America/Sao_Paulo";
+  const STEPS = [
+    { ev: "PageView", lbl: "Visitas" },
+    { ev: "ViewContent", lbl: "Viu produto" },
+    { ev: "AddToCart", lbl: "Carrinho" },
+    { ev: "InitiateCheckout", lbl: "Checkout" },
+    { ev: "Purchase", lbl: "Compras", key: true }
+  ];
+  const SERIES = [
+    { ev: "PageView", lbl: "Visitas", color: "var(--leaf)", axis: "left" },
+    { ev: "AddToCart", lbl: "Carrinho", color: "var(--warn)", axis: "right" },
+    { ev: "Purchase", lbl: "Compras", color: "var(--petal)", axis: "right" }
+  ];
+
+  let days = 7, data = null;
+  try { const d = parseInt(localStorage.getItem("tdf-days"), 10); if ([7, 14, 30].includes(d)) days = d; } catch (e) {}
+  const $ = (id) => document.getElementById(id);
+  const fmt = new Intl.NumberFormat("pt-BR");
+  const pct = (a, b) => b > 0 ? (a / b * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 }) + "%" : "–";
+  const dayKey = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" });
+  const dayLbl = new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, day: "2-digit", month: "2-digit" });
+  const timeLbl = new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+  function setPressed() {
+    document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.days === days)));
+  }
+  function notice(html) { const n = $("notice"); if (html) { n.innerHTML = html; n.hidden = false; } else n.hidden = true; }
+
+  function renderFunnel(totals) {
+    const top = totals.PageView || 0;
+    $("funnel").innerHTML = STEPS.map((s, i) => {
+      const v = totals[s.ev] || 0;
+      const prev = i === 0 ? null : (totals[STEPS[i - 1].ev] || 0);
+      const w = top > 0 ? Math.max(v > 0 ? 2 : 0, v / top * 100) : 0;
+      const rate = i === 0 ? "base do funil" : `${pct(v, prev)} da etapa anterior`;
+      return `<div class="step${s.key ? " key" : ""}${v === 0 ? " zero" : ""}">
+        <span class="lbl">${s.lbl}</span>
+        <span class="num">${fmt.format(v)}</span>
+        <span class="rate">${rate}</span>
+        <span class="bar"><i style="width:${w}%"></i></span>
+      </div>`;
+    }).join("");
+  }
+
+  function niceMax(v) {
+    if (v <= 4) return 4;
+    const p = Math.pow(10, Math.floor(Math.log10(v)));
+    for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= v) return m * p;
+    return 10 * p;
+  }
+
+  function renderChart(list) {
+    $("legend").innerHTML = SERIES.map(s => `<span><i style="background:${s.color}"></i>${s.lbl}${s.axis === "right" ? " (eixo direito)" : ""}</span>`).join("");
+    const W = 760, H = 260, L = 44, R = 40, T = 14, B = 30;
+    const iw = W - L - R, ih = H - T - B;
+    const n = list.length, slot = iw / n;
+    const lMax = niceMax(Math.max(1, ...list.map(d => d.PageView || 0)));
+    const rMax = niceMax(Math.max(1, ...list.map(d => Math.max(d.AddToCart || 0, d.Purchase || 0))));
+    const yL = v => T + ih - v / lMax * ih, yR = v => T + ih - v / rMax * ih;
+    let g = "";
+    for (let i = 0; i <= 4; i++) {
+      const y = T + ih - i / 4 * ih;
+      g += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="var(--line)" stroke-width="1"/>`;
+      g += `<text x="${L - 8}" y="${y + 4}" text-anchor="end">${fmt.format(Math.round(lMax * i / 4))}</text>`;
+      g += `<text x="${W - R + 8}" y="${y + 4}" text-anchor="start">${fmt.format(+(rMax * i / 4).toFixed(1))}</text>`;
+    }
+    const bw = Math.min(28, slot * 0.55);
+    list.forEach((d, i) => {
+      const cx = L + slot * i + slot / 2, v = d.PageView || 0;
+      g += `<rect x="${cx - bw / 2}" y="${yL(v)}" width="${bw}" height="${T + ih - yL(v)}" rx="3" fill="var(--leaf)" opacity="0.85"><title>${dayLbl.format(d.date)}: ${v} visitas</title></rect>`;
+      const every = n > 14 ? 3 : n > 7 ? 2 : 1;
+      if (i % every === 0 || i === n - 1) g += `<text x="${cx}" y="${H - 10}" text-anchor="middle">${dayLbl.format(d.date)}</text>`;
+    });
+    for (const s of SERIES.slice(1)) {
+      const pts = list.map((d, i) => [L + slot * i + slot / 2, yR(d[s.ev] || 0), d[s.ev] || 0]);
+      g += `<polyline fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round" points="${pts.map(p => p[0] + "," + p[1]).join(" ")}"/>`;
+      pts.forEach((p, i) => { if (p[2] > 0 || i === pts.length - 1) g += `<circle cx="${p[0]}" cy="${p[1]}" r="${p[2] > 0 ? 4 : 2.5}" fill="${s.color}" stroke="var(--surface)" stroke-width="1.5"><title>${dayLbl.format(list[i].date)}: ${p[2]} ${s.lbl.toLowerCase()}</title></circle>`; });
+    }
+    $("chart").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Visitas, carrinho e compras por dia">${g}</svg>`;
+  }
+
+  function renderTable(list) {
+    const rows = list.slice().reverse().map(d => {
+      const pv = d.PageView || 0, atc = d.AddToCart || 0, pur = d.Purchase || 0;
+      const c = v => `<td class="${v ? "" : "dim"}">${fmt.format(v || 0)}</td>`;
+      return `<tr><td>${dayLbl.format(d.date)}</td>${c(pv)}${c(d.ViewContent)}${c(atc)}${c(d.InitiateCheckout)}${c(pur)}<td class="dim">${pct(atc, pv)}</td><td class="dim">${pct(pur, pv)}</td></tr>`;
+    }).join("");
+    $("table").innerHTML = `<table><thead><tr><th>Dia</th><th>Visitas</th><th>Viu produto</th><th>Carrinho</th><th>Checkout</th><th>Compras</th><th>Visita → carrinho</th><th>Visita → compra</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+
+
+  function build() {
+    const list = [];
+    const now = Date.now();
+    for (let i = days - 1; i >= 0; i--) {
+      const dt = new Date(now - i * 86400000);
+      const k = dayKey.format(dt);
+      list.push(Object.assign({ key: k, date: dt }, data.days[k] || {}));
+    }
+    const totals = {};
+    for (const d of list) for (const s of STEPS) totals[s.ev] = (totals[s.ev] || 0) + (d[s.ev] || 0);
+    return { list, totals };
+  }
+
+  function draw() {
+    if (!data) return;
+    const { list, totals } = build();
+    renderFunnel(totals); renderChart(list); renderTable(list);
+    $("fresh").textContent = "Atualizado " + timeLbl.format(new Date(data.updated_at));
+    if ((totals.InitiateCheckout || 0) > 0 && !(totals.Purchase > 0)) {
+      notice("<b>Nenhuma compra registrada no período.</b> Houve checkouts iniciados, mas o site não enviou o evento de compra. Se houve vendas, o evento de compra precisa ser instalado na página de pedido concluído.");
+    } else notice("");
+  }
+
+  document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+    days = +b.dataset.days; setPressed();
+    try { localStorage.setItem("tdf-days", String(days)); } catch (e) {}
+    draw();
+  }));
+  setPressed();
+  fetch("data.json", { cache: "no-store" }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(j => { data = j; draw(); })
+    .catch(() => { $("fresh").textContent = "Sem dados"; notice("<b>Não foi possível carregar os números.</b> Recarregue a página em instantes."); });
+})();
+</script>

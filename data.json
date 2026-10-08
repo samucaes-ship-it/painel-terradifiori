@@ -1,0 +1,32 @@
+{
+ "days": {
+  "2026-10-04": {
+   "PageView": 5,
+   "ViewContent": 2,
+   "AddToCart": 1
+  },
+  "2026-10-05": {
+   "PageView": 16,
+   "ViewContent": 1
+  },
+  "2026-10-06": {
+   "PageView": 57,
+   "ViewContent": 6,
+   "AddToCart": 2,
+   "InitiateCheckout": 2
+  },
+  "2026-10-07": {
+   "PageView": 37,
+   "ViewContent": 3,
+   "ViewCategory": 2
+  },
+  "2026-10-08": {
+   "PageView": 23,
+   "AddToCart": 1,
+   "InitiateCheckout": 1,
+   "ViewCategory": 1,
+   "ViewContent": 2
+  }
+ },
+ "updated_at": "2026-10-08T20:47:20+00:00"
+}
