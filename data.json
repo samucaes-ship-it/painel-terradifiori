@@ -28,8 +28,18 @@
    "ViewContent": 2
   },
   "2026-10-09": {
-   "PageView": 4
+   "PageView": 63,
+   "ViewContent": 11,
+   "AddToCart": 2,
+   "ViewCategory": 1,
+   "Purchase": 2,
+   "InitiateCheckout": 1
+  },
+  "2026-10-10": {
+   "PageView": 20,
+   "ViewCategory": 3,
+   "ViewContent": 1
   }
  },
- "updated_at": "2026-10-09T09:55:13+00:00"
+ "updated_at": "2026-10-10T09:54:38+00:00"
 }
