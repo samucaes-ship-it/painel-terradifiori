@@ -49,8 +49,15 @@
    "InitiateCheckout": 1
   },
   "2026-10-12": {
-   "PageView": 3
+   "PageView": 41,
+   "ViewCategory": 6,
+   "ViewContent": 8,
+   "AddToCart": 1,
+   "InitiateCheckout": 1
+  },
+  "2026-10-13": {
+   "PageView": 4
   }
  },
- "updated_at": "2026-10-12T09:54:14+00:00"
+ "updated_at": "2026-10-13T09:54:10+00:00"
 }
