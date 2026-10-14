@@ -56,8 +56,9 @@
    "InitiateCheckout": 1
   },
   "2026-10-13": {
-   "PageView": 4
+   "PageView": 8,
+   "ViewContent": 1
   }
  },
- "updated_at": "2026-10-13T09:54:10+00:00"
+ "updated_at": "2026-10-14T09:54:41+00:00"
 }
