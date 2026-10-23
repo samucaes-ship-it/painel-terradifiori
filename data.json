@@ -102,8 +102,18 @@
    "InitiateCheckout": 1
   },
   "2026-10-22": {
-   "PageView": 2
+   "PageView": 82,
+   "ViewContent": 7,
+   "AddToCart": 4,
+   "InitiateCheckout": 3,
+   "Purchase": 4,
+   "ViewCategory": 2
+  },
+  "2026-10-23": {
+   "PageView": 4,
+   "AddToCart": 1,
+   "InitiateCheckout": 1
   }
  },
- "updated_at": "2026-10-22T09:54:57+00:00"
+ "updated_at": "2026-10-23T09:54:23+00:00"
 }
