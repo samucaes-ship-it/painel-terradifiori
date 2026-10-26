@@ -125,8 +125,18 @@
    "ViewCategory": 3
   },
   "2026-10-25": {
-   "PageView": 8
+   "PageView": 48,
+   "ViewCategory": 4,
+   "ViewContent": 8,
+   "AddToCart": 2,
+   "InitiateCheckout": 2
+  },
+  "2026-10-26": {
+   "PageView": 10,
+   "ViewCategory": 2,
+   "ViewContent": 2,
+   "AddToCart": 1
   }
  },
- "updated_at": "2026-10-25T09:54:10+00:00"
+ "updated_at": "2026-10-26T09:55:20+00:00"
 }
