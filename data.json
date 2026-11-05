@@ -193,8 +193,15 @@
    "ViewCategory": 2
   },
   "2026-11-04": {
-   "PageView": 10
+   "PageView": 46,
+   "AddToCart": 3,
+   "InitiateCheckout": 3,
+   "ViewContent": 4
+  },
+  "2026-11-05": {
+   "PageView": 4,
+   "ViewContent": 2
   }
  },
- "updated_at": "2026-11-04T09:54:48+00:00"
+ "updated_at": "2026-11-05T09:54:58+00:00"
 }
