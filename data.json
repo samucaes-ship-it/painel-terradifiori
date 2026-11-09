@@ -217,8 +217,17 @@
    "InitiateCheckout": 1
   },
   "2026-11-08": {
-   "PageView": 2
+   "PageView": 63,
+   "ViewContent": 13,
+   "AddToCart": 3,
+   "InitiateCheckout": 4,
+   "Purchase": 1,
+   "ViewCategory": 8
+  },
+  "2026-11-09": {
+   "PageView": 6,
+   "ViewContent": 1
   }
  },
- "updated_at": "2026-11-08T09:53:52+00:00"
+ "updated_at": "2026-11-09T09:55:16+00:00"
 }
