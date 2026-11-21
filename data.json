@@ -304,8 +304,12 @@
    "ViewCategory": 1
   },
   "2026-11-20": {
-   "PageView": 3
+   "PageView": 27,
+   "ViewContent": 2,
+   "ViewCategory": 3,
+   "AddToCart": 1,
+   "InitiateCheckout": 1
   }
  },
- "updated_at": "2026-11-20T09:53:48+00:00"
+ "updated_at": "2026-11-21T09:54:11+00:00"
 }
