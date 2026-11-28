@@ -349,7 +349,16 @@
   "2026-11-26": {
    "PageView": 16,
    "ViewContent": 2
+  },
+  "2026-11-27": {
+   "PageView": 11,
+   "ViewContent": 3,
+   "AddToCart": 2,
+   "InitiateCheckout": 2
+  },
+  "2026-11-28": {
+   "PageView": 3
   }
  },
- "updated_at": "2026-11-27T09:54:32+00:00"
+ "updated_at": "2026-11-28T09:53:44+00:00"
 }
